@@ -39,6 +39,13 @@ void setGreen(int road) {
     }
 }
 
+void turnOffAllLEDs(void) {
+	HAL_GPIO_WritePin(D3_GPIO_Port, D3_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(D4_GPIO_Port, D4_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(D5_GPIO_Port, D5_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, GPIO_PIN_RESET);
+}
+
 int old_num1 = -1;
 int old_num2 = -1;
 
