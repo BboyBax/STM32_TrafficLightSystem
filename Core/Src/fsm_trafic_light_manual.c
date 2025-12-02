@@ -47,6 +47,9 @@ void fsm_manual_run(){
 				updateLEDBuffer(counter1, counter2);
 				setButtonFlag(2);
 			}
+			if(isButtonPressed(3)){
+				status=CROSS;
+			}
 			if(isTimerExpired(4)){
 				// Chỉ toggle đèn đỏ
 				HAL_GPIO_TogglePin(D3_GPIO_Port, D3_Pin);
@@ -77,7 +80,6 @@ void fsm_manual_run(){
 		        time_red = temp_red;
 		        time_green = temp_green;
 		        time_yellow = temp_yellow;
-
 		        turnOffAllLEDs(); // Tắt tất cả đèn trước khi về AUTO
 		        counter1 = time_red;
 		        counter2 = time_green;
@@ -85,6 +87,9 @@ void fsm_manual_run(){
 		        setTimer(1, counter2*100);
 		        updateLEDBuffer(counter1, counter2);
 		    }
+		    if(isButtonPressed(3)){
+				status=CROSS;
+			}
 		    if(isTimerExpired(4)){
 		        // Chỉ toggle đèn vàng
 		        HAL_GPIO_TogglePin(D4_GPIO_Port, D4_Pin);
@@ -95,7 +100,6 @@ void fsm_manual_run(){
 
 		case MAN_GREEN:
 		    updateLEDBuffer(4, temp_green);
-
 		    if(isButtonPressed(0)){
 		    	status = INIT; // Quay về AUTO mode
 		    	turnOffAllLEDs(); // Tắt tất cả đèn
@@ -120,6 +124,9 @@ void fsm_manual_run(){
 		        setTimer(1, counter2*100);
 		        updateLEDBuffer(counter1, counter2);
 		    }
+		    if(isButtonPressed(3)){
+				status=CROSS;
+			}
 		    if(isTimerExpired(4)){
 		        // Chỉ toggle đèn xanh
 		    	HAL_GPIO_TogglePin(D3_GPIO_Port, D3_Pin);
@@ -127,5 +134,26 @@ void fsm_manual_run(){
 		        setTimer(4, 50);
 		    }
 		    break;
+		case CROSS:
+			setTimer(5,1500);
+			setTimer(6,100);
+			time_red=15;
+			counter1 = time_red;
+			counter2 = time_red;
+			if(isTimerExpired(6)){
+				counter1 --;
+				counter2 --;
+				updateLEDBuffer(counter1, counter2);
+				setTimer(6,100);
+			}
+			HAL_GPIO_WritePin(D3_GPIO_Port, D3_Pin, SET);
+			HAL_GPIO_WritePin(D4_GPIO_Port, D4_Pin, SET);
+			HAL_GPIO_WritePin(D5_GPIO_Port, D5_Pin, SET);
+			HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, SET);
+			if(isTimerExpired(5)){
+				status = INIT;
+
+			}
+			break;
 	}
 }

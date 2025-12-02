@@ -108,50 +108,34 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, RESET);
-  HAL_GPIO_WritePin(LED_BLINK2_GPIO_Port, LED_BLINK2_Pin, RESET);
-  setTimer(0, 100);
-    setTimer(1,500);
+    HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, RESET);
+    HAL_GPIO_WritePin(LED_BLINK2_GPIO_Port, LED_BLINK2_Pin, RESET);
+    setTimer(0, 10);
+    setTimer(1,50);
+    setTimer(4,50);
     updateLEDBuffer(time_red,time_green);
     while (1)
     {
-
-  	  if (isButtonPressed(0) == 1) {
-  	  		  if (status == INIT || (status >= RED_GREEN_AUTO && status <= AMBER_RED_AUTO)) {
-  	  			  status = MAN_RED;
-  	  			  turnOffAllLEDs();
-  	  			  lcd_clear_display();
-  	  			  setTimer(4, 50);
-  	  			  updateLEDBuffer(2, temp_red);
-  	  		  }
-  	  		  else if (status == MAN_RED) {
-  	  			  status = MAN_YELLOW;
-  	  			  turnOffAllLEDs();
-  	  			  lcd_clear_display();
-  	  			  setTimer(4, 50);
-  	  			  updateLEDBuffer(3, temp_yellow);
-  	  		  }
-  	  		  else if (status == MAN_YELLOW) {
-  	  			  status = MAN_GREEN;
-  	  			  turnOffAllLEDs();
-  	  			  lcd_clear_display();
-  	  			  setTimer(4, 50);
-  	  			  updateLEDBuffer(4, temp_green);
-  	  		  }
-  	  		  else if (status == MAN_GREEN){
-
-  	  			  status = INIT;
-  	  			  turnOffAllLEDs();
-  	  			  lcd_clear_display();
-  	  			  check();
-  	  		  }
-  	  	  }
-  	  	  if (status == INIT || (status >= RED_GREEN_AUTO && status <= AMBER_RED_AUTO)){
-  	  		  fsm_traffic_light_auto();
-  	  	  }
-  	  	  else if (status >= MAN_RED && status <= MAN_GREEN){
-  	  		  fsm_manual_run();
-  	  	  }
+  	  if (isButtonPressed(0)){
+		  if (status == INIT || (status >= RED_GREEN_AUTO && status <= AMBER_RED_AUTO)) {
+			  status = MAN_RED;
+			  turnOffAllLEDs();
+			  lcd_clear_display();
+			  setTimer(4, 50);
+			  updateLEDBuffer(2, temp_red);
+		  }
+	  }
+	  if (status == INIT || (status >= RED_GREEN_AUTO && status <= AMBER_RED_AUTO)){
+		  fsm_traffic_light_auto();
+	  }
+	  else if (status >= MAN_RED && status <= MAN_GREEN){
+		  fsm_manual_run();
+	  }
+	  if(isButtonPressed(3)){
+		  status = CROSS;
+		  turnOffAllLEDs();
+		  lcd_clear_display();
+  	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
