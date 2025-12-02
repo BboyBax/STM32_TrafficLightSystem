@@ -1,0 +1,4 @@
+display.c:12:6:setRed	16	static
+display.c:22:6:setAmber	16	static
+display.c:32:6:setGreen	16	static
+display.c:45:6:updateLEDBuffer	32	static

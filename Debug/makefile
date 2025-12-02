@@ -64,8 +64,8 @@ all: main-build
 main-build: TEST_NUCLEO.elf secondary-outputs
 
 # Tool invocations
-TEST_NUCLEO.elf: $(OBJS) $(USER_OBJS) D:\TEST_BOARD\TEST_1\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TEST_NUCLEO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\TEST_BOARD\TEST_1\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TEST_NUCLEO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+TEST_NUCLEO.elf: $(OBJS) $(USER_OBJS) D:\BK\HK251\VXL_VDK\GIT_LABs\BTL\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TEST_NUCLEO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\BK\HK251\VXL_VDK\GIT_LABs\BTL\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TEST_NUCLEO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

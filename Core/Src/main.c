@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "software_timer.h"
 #include "button.h"
+#include "i2c-lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -99,21 +100,29 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  lcd_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-  HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, RESET);
-  HAL_GPIO_WritePin(LED_BLINK2_GPIO_Port, LED_BLINK2_Pin, RESET);
+  time_red = 5;
+    time_green = 3;
+    time_amber = 2;
+    lcd_clear_display();
   while (1)
   {
-	  if (isButton1Pressed() == 1) {
-		  HAL_GPIO_TogglePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin);
-		  button1_flag = 0;
-	  }
+	  if (isButtonPressed(0)) {
+	  		  HAL_GPIO_TogglePin(D3_GPIO_Port, D3_Pin);
+	  		  HAL_GPIO_TogglePin(D4_GPIO_Port,D4_Pin);
+	  		  setButtonFlag(0);
+	  	  }
+	  lcd_goto_XY(0, 0);
+	    lcd_send_string("System Init...");
+	    lcd_goto_XY(1, 0);
+	    lcd_send_string("Traffic Light");
+	    HAL_Delay(2000); // Dừng 2s để bạn kịp nhìn thấy chữ
+	    lcd_clear_display();
 
-//	  HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
