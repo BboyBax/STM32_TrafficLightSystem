@@ -17,5 +17,6 @@ void setGreen(int road);
 void turnOffAllLEDs(void);
 
 void updateLEDBuffer(int num1, int num2);
+const char* getTrafficLightState(int road);
 
 #endif /* INC_DISPLAY_H_ */

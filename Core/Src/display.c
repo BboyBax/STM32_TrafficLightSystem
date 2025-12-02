@@ -48,21 +48,94 @@ void turnOffAllLEDs(void) {
 
 int old_num1 = -1;
 int old_num2 = -1;
+int old_status = -1;
+
+const char* getTrafficLightState(int road) {
+    switch (status) {
+        case AUTO_RED_GREEN:
+            return (road == 1) ? "RED" : "GREEN";
+        case AUTO_RED_AMBER:
+            return (road == 1) ? "RED" : "AMBER";
+        case AUTO_GREEN_RED:
+            return (road == 1) ? "GREEN" : "RED";
+        case AUTO_AMBER_RED:
+            return (road == 1) ? "AMBER" : "RED";
+
+        case MAN_RED:
+        case MAN_AMBER:
+        case MAN_GREEN:
+            return "RED";
+        default:
+            return "---";
+    }
+}
 
 void updateLEDBuffer(int num1, int num2) {
-    char str_buff[16];
+    char str_buff[17];
 
-    if (num1 != old_num1 || num2 != old_num2) {
+    const char* state1;
+    const char* state2;
 
-        lcd_goto_XY(1, 0);
-        sprintf(str_buff, "Road 1: %02d", num1);
-        lcd_send_string(str_buff);
+    if (num1 != old_num1 || num2 != old_num2 || status != old_status) {
 
-        lcd_goto_XY(2, 0);
-        sprintf(str_buff, "Road 2: %02d", num2);
-        lcd_send_string(str_buff);
+        switch (status) {
+            case AUTO_RED_GREEN:
+            case AUTO_RED_AMBER:
+            case AUTO_GREEN_RED:
+            case AUTO_AMBER_RED:
+            case INIT:
+
+                state1 = getTrafficLightState(1);
+                state2 = getTrafficLightState(2);
+
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "R1:%02d - %s ", num1, state1);
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "R2:%02d - %s ", num2, state2);
+                lcd_send_string(str_buff);
+                break;
+
+            case MAN_RED:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "MODE: 2 (RED) ");
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "SET R: %02d ", temp_red);
+                lcd_send_string(str_buff);
+                break;
+
+            case MAN_AMBER:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "MODE: 3 (AMBER)");
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "SET A: %02d ", temp_amber);
+                lcd_send_string(str_buff);
+                break;
+
+            case MAN_GREEN:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "MODE: 4 (GREEN)");
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "SET G: %02d ", temp_green);
+                lcd_send_string(str_buff);
+                break;
+
+            default:
+                lcd_clear_display();
+                lcd_goto_XY(1, 0);
+                lcd_send_string("Mode 1: Traffic");
+                break;
+        }
 
         old_num1 = num1;
         old_num2 = num2;
+        old_status = status;
     }
 }
