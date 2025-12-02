@@ -23,7 +23,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "software_timer.h"
+#include "scheduler.h"
 #include "button.h"
+#include "i2c-lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,6 +43,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c1;
+
 TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart2;
@@ -54,6 +58,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -79,7 +84,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  lcd_init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -93,23 +98,17 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
   HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, RESET);
   HAL_GPIO_WritePin(LED_BLINK2_GPIO_Port, LED_BLINK2_Pin, RESET);
   while (1)
   {
-	  if (isButton1Pressed() == 1) {
-		  HAL_GPIO_TogglePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin);
-		  button1_flag = 0;
-	  }
-
-//	  HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -152,6 +151,40 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
+
 }
 
 /**
@@ -251,6 +284,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, D6_Pin|D3_Pin|D5_Pin|D4_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_BLINK2_GPIO_Port, LED_BLINK2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : BUTTON_Pin */
@@ -266,12 +302,37 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_BLINK_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : D6_Pin D3_Pin D5_Pin D4_Pin */
+  GPIO_InitStruct.Pin = D6_Pin|D3_Pin|D5_Pin|D4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : D9_Pin */
+  GPIO_InitStruct.Pin = D9_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(D9_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : LED_BLINK2_Pin */
   GPIO_InitStruct.Pin = LED_BLINK2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_BLINK2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : D7_Pin D8_Pin */
+  GPIO_InitStruct.Pin = D7_Pin|D8_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : D10_Pin */
+  GPIO_InitStruct.Pin = D10_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(D10_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
