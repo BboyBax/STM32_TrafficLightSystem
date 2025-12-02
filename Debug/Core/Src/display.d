@@ -25,7 +25,8 @@ Core/Src/display.o: ../Core/Src/display.c ../Core/Inc/display.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/i2c-lcd.h
+ ../Core/Inc/i2c-lcd.h ../Core/Inc/global.h ../Core/Inc/software_timer.h \
+ ../Core/Inc/button.h ../Core/Inc/display.h
 
 ../Core/Inc/display.h:
 
@@ -84,3 +85,11 @@ Core/Src/display.o: ../Core/Src/display.c ../Core/Inc/display.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 
 ../Core/Inc/i2c-lcd.h:
+
+../Core/Inc/global.h:
+
+../Core/Inc/software_timer.h:
+
+../Core/Inc/button.h:
+
+../Core/Inc/display.h:

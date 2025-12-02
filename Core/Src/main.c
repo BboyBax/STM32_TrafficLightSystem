@@ -25,6 +25,8 @@
 #include "software_timer.h"
 #include "button.h"
 #include "i2c-lcd.h"
+#include "global.h"
+#include "display.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,23 +107,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  time_red = 5;
-    time_green = 3;
-    time_amber = 2;
-    lcd_clear_display();
+
   while (1)
   {
-	  if (isButtonPressed(0)) {
-	  		  HAL_GPIO_TogglePin(D3_GPIO_Port, D3_Pin);
-	  		  HAL_GPIO_TogglePin(D4_GPIO_Port,D4_Pin);
-	  		  setButtonFlag(0);
-	  	  }
-	  lcd_goto_XY(0, 0);
-	    lcd_send_string("System Init...");
-	    lcd_goto_XY(1, 0);
-	    lcd_send_string("Traffic Light");
-	    HAL_Delay(2000); // Dừng 2s để bạn kịp nhìn thấy chữ
-	    lcd_clear_display();
 
     /* USER CODE END WHILE */
 

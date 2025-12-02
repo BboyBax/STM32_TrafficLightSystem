@@ -11,7 +11,7 @@
 #include "main.h"
 #include "software_timer.h"
 #include "button.h"
-#include "led_display.h"
+#include "display.h"
 
 #define INIT			0
 #define AUTO_RED_GREEN	1

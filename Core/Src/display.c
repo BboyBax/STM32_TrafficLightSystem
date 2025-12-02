@@ -6,7 +6,7 @@
  */
 
 #include "display.h"
-//#include "global.h"
+#include "global.h"
 #include <stdio.h>
 
 void setRed(int road) {
@@ -47,11 +47,11 @@ void updateLEDBuffer(int num1, int num2) {
 
     if (num1 != old_num1 || num2 != old_num2) {
 
-        lcd_goto_XY(0, 0);
+        lcd_goto_XY(1, 0);
         sprintf(str_buff, "Road 1: %02d", num1);
         lcd_send_string(str_buff);
 
-        lcd_goto_XY(1, 0);
+        lcd_goto_XY(2, 0);
         sprintf(str_buff, "Road 2: %02d", num2);
         lcd_send_string(str_buff);
 
