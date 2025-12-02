@@ -12,12 +12,13 @@
 #include "button.h"
 #include "i2c-lcd.h"
 #include "software_timer.h"
+#include "display.h"
 
-#define INIT 			0
-#define RED_GREEN_AUTO 	1
-#define RED_AMBER_AUTO 	2
-#define GREEN_RED_AUTO 	3
-#define AMBER_RED_AUTO 	4
+//#define INIT 			0
+//#define RED_GREEN_AUTO 	1
+//#define RED_AMBER_AUTO 	2
+//#define GREEN_RED_AUTO 	3
+//#define AMBER_RED_AUTO 	4
 #define ERROR 			5
 
 void fsm_traffic_light_auto();

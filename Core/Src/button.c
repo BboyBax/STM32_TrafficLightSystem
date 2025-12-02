@@ -97,15 +97,17 @@
 Button_t buttons[NUM_BUTTONS];
 
 GPIO_TypeDef* BUTTON_PORTS[NUM_BUTTONS] = {
-    BUTTON1_GPIO_Port,
-    BUTTON2_GPIO_Port,
-    BUTTON3_GPIO_Port,
+    D7_GPIO_Port,
+    D8_GPIO_Port,
+	D9_GPIO_Port,
+    D10_GPIO_Port,
 };
 
 uint16_t BUTTON_PINS[NUM_BUTTONS] = {
-    BUTTON1_Pin,
-    BUTTON2_Pin,
-    BUTTON3_Pin,
+	D7_Pin,
+	D8_Pin,
+	D9_Pin,
+    D10_Pin,
 };
 
 // IMPLEMENTATION

@@ -1,4 +1,6 @@
-button.c:12:5:isButton1Pressed	4	static
-button.c:20:5:isButton1LongPressed	4	static
-button.c:28:6:subKeyProcess	4	static
-button.c:34:6:getKeyInput	8	static
+button.c:115:6:Button_Init	16	static
+button.c:127:5:isButtonPressed	16	static
+button.c:135:5:isButtonLongPressed	16	static
+button.c:143:6:subKeyProcess	16	static
+button.c:147:6:setButtonFlag	16	static
+button.c:151:6:getKeyInput	16	static

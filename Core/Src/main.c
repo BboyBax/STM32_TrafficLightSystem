@@ -26,6 +26,9 @@
 #include "scheduler.h"
 #include "button.h"
 #include "i2c-lcd.h"
+#include "global.h"
+#include "fsm_traffic_light_auto.h"
+#include "fsm_traffic_light_manual.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -107,8 +110,48 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, RESET);
   HAL_GPIO_WritePin(LED_BLINK2_GPIO_Port, LED_BLINK2_Pin, RESET);
-  while (1)
-  {
+  setTimer(0, 100);
+    setTimer(1,500);
+    updateLEDBuffer(time_red,time_green);
+    while (1)
+    {
+
+  	  if (isButtonPressed(0) == 1) {
+  	  		  if (status == INIT || (status >= RED_GREEN_AUTO && status <= AMBER_RED_AUTO)) {
+  	  			  status = MAN_RED;
+  	  			  turnOffAllLEDs();
+  	  			  lcd_clear_display();
+  	  			  setTimer(4, 50);
+  	  			  updateLEDBuffer(2, temp_red);
+  	  		  }
+  	  		  else if (status == MAN_RED) {
+  	  			  status = MAN_YELLOW;
+  	  			  turnOffAllLEDs();
+  	  			  lcd_clear_display();
+  	  			  setTimer(4, 50);
+  	  			  updateLEDBuffer(3, temp_yellow);
+  	  		  }
+  	  		  else if (status == MAN_YELLOW) {
+  	  			  status = MAN_GREEN;
+  	  			  turnOffAllLEDs();
+  	  			  lcd_clear_display();
+  	  			  setTimer(4, 50);
+  	  			  updateLEDBuffer(4, temp_green);
+  	  		  }
+  	  		  else if (status == MAN_GREEN){
+
+  	  			  status = INIT;
+  	  			  turnOffAllLEDs();
+  	  			  lcd_clear_display();
+  	  			  check();
+  	  		  }
+  	  	  }
+  	  	  if (status == INIT || (status >= RED_GREEN_AUTO && status <= AMBER_RED_AUTO)){
+  	  		  fsm_traffic_light_auto();
+  	  	  }
+  	  	  else if (status >= MAN_RED && status <= MAN_GREEN){
+  	  		  fsm_manual_run();
+  	  	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -343,6 +386,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 	void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		getKeyInput();
+		timerRun();
  }
 /* USER CODE END 4 */
 
