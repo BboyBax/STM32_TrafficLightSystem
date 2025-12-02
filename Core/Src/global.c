@@ -1,8 +1,17 @@
 /*
  * global.c
  *
- *  Created on: Dec 2, 2025
+ *  Created on: Oct 31, 2025
  *      Author: Thanh Phong
+ *
+ *
  */
 
+#include "global.h"
+#include "fsm_traffic_light_manual.h"
 
+int status = 0;
+
+void check(){
+	temp_red=temp_green+temp_yellow;
+}

@@ -6,7 +6,9 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/button.c \
+../Core/Src/display.c \
 ../Core/Src/fsm_trafic_light_manual.c \
+../Core/Src/global.c \
 ../Core/Src/i2c.c \
 ../Core/Src/main.c \
 ../Core/Src/software_timer.c \
@@ -18,7 +20,9 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/button.o \
+./Core/Src/display.o \
 ./Core/Src/fsm_trafic_light_manual.o \
+./Core/Src/global.o \
 ./Core/Src/i2c.o \
 ./Core/Src/main.o \
 ./Core/Src/software_timer.o \
@@ -30,7 +34,9 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/button.d \
+./Core/Src/display.d \
 ./Core/Src/fsm_trafic_light_manual.d \
+./Core/Src/global.d \
 ./Core/Src/i2c.d \
 ./Core/Src/main.d \
 ./Core/Src/software_timer.d \

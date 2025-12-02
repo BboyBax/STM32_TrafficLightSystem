@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "software_timer.h"
 #include "button.h"
+#include "fsm_traffic_light_manual.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -108,25 +109,44 @@ int main(void)
 
 
   /* USER CODE END 2 */
-  while (1)
-  {
-	  if (isButtonPressed(0)) {
-		  HAL_GPIO_TogglePin(D3_GPIO_Port, D3_Pin);
-		  HAL_GPIO_TogglePin(D4_GPIO_Port,D4_Pin);
-		  setButtonFlag(0);
-	  }
+    setTimer(0, 1000);
+    setTimer(1,5000);
+    setTimer(3,120);
+    updateLEDBuffer(time_red,time_green);
+    while (1)
+    {
+  	  if (isbuttonpressed(0) == 1) {
+  	  		  if (status == INIT || (status >= AUTO_RED_GREEN && status <= AUTO_YELLOW_RED)) {
+  	  			  status = MAN_RED;
+  	  			  turnoffled();
+  	  			  setTimer(4, 500);
+  	  			  updateLEDBuffer(2, temp_red);
+  	  		  }
+  	  		  else if (status == MAN_RED) {
+  	  			  status = MAN_YELLOW;
+  	  			  turnoffled();
+  	  			  setTimer(4, 500);
+  	  			  updateLEDBuffer(3, temp_yellow);
+  	  		  }
+  	  		  else if (status == MAN_YELLOW) {
+  	  			  status = MAN_GREEN;
+  	  			  turnoffled();
+  	  			  setTimer(4, 500);
+  	  			  updateLEDBuffer(4, temp_green);
+  	  		  }
+  	  		  else if (status == MAN_GREEN){
 
-	  /* USER CODE BEGIN 2 */
+  	  			  status = INIT;
+  	  			  turnoffled();
+  	  		  }
+  	  	  }
+  	  	  if (status == INIT || (status >= AUTO_RED_GREEN && status <= AUTO_YELLOW_RED)){
+  	  		  fsm_automatic_run();
+  	  	  }
+  	  	  else if (status >= MAN_RED && status <= MAN_GREEN){
+  	  		  fsm_manual_run();
+  	  	  }
 
-
-	  lcd_goto_XY(1, 0);
-	  lcd_send_string("Phong dep trai");
-
-	  lcd_goto_XY(2, 0); // Xuống dòng thứ 2
-
-	  lcd_send_string("STM32 Ready");
-	  /* USER CODE END 2 */
-//	  HAL_GPIO_WritePin(LED_BLINK_GPIO_Port, LED_BLINK_Pin, HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
