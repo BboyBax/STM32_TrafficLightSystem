@@ -1,6 +1,5 @@
-display.c:12:6:setRed	16	static
-display.c:22:6:setAmber	16	static
-display.c:32:6:setGreen	16	static
-display.c:42:6:turnOffAllLEDs	8	static
-display.c:53:13:getTrafficLightState	16	static
-display.c:73:6:updateLEDBuffer	48	static
+display.c:13:6:setRed	16	static
+display.c:23:6:setAmber	16	static
+display.c:33:6:setGreen	16	static
+display.c:43:6:turnOffAllLEDs	8	static
+display.c:54:6:updateLEDBuffer	40	static
