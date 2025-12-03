@@ -8,6 +8,7 @@
 #include "global.h"
 
 int status = INIT;
+//int status_temp = AUTO_RED_GREEN;
 int counter1 = 0;
 int counter2 = 0;
 

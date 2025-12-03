@@ -27,7 +27,8 @@ Core/Src/fsm_automatic.o: ../Core/Src/fsm_automatic.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  ../Core/Inc/software_timer.h ../Core/Inc/button.h ../Core/Inc/display.h \
- ../Core/Inc/i2c-lcd.h
+ ../Core/Inc/i2c-lcd.h ../Core/Inc/pedestrian_crossing.h \
+ ../Core/Inc/pedestrian_crossing.h
 
 ../Core/Inc/fsm_automatic.h:
 
@@ -94,3 +95,7 @@ Core/Src/fsm_automatic.o: ../Core/Src/fsm_automatic.c \
 ../Core/Inc/display.h:
 
 ../Core/Inc/i2c-lcd.h:
+
+../Core/Inc/pedestrian_crossing.h:
+
+../Core/Inc/pedestrian_crossing.h:

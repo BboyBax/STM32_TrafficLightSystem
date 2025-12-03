@@ -103,7 +103,62 @@ void updateLEDBuffer(int num1, int num2) {
                 sprintf(str_buff, "SET G: %02d ", num2);
                 lcd_send_string(str_buff);
                 break;
+            case PEDESTRIAN_RED_AMBER:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "Road 1:%02d ", num1);
+                lcd_send_string(str_buff);
 
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "Road 2:%02d", num2);
+                lcd_send_string(str_buff);
+                break;
+            case PEDESTRIAN_RED_GREEN:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "Road 1:%02d ", num1);
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "Road 2:%02d", num2);
+                lcd_send_string(str_buff);
+                break;
+
+            case PEDESTRIAN_RED_RED1:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "Road 1:%02d ", num1);
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "Road 2:%02d", num2);
+                lcd_send_string(str_buff);
+                break;
+            case PEDESTRIAN_AMBER_RED:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "Road 1:%02d ", num1);
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "Road 2:%02d", num2);
+                lcd_send_string(str_buff);
+                break;
+            case PEDESTRIAN_GREEN_RED:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "Road 1:%02d ", num1);
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "Road 2:%02d", num2);
+                lcd_send_string(str_buff);
+                break;
+
+            case PEDESTRIAN_RED_RED2:
+                lcd_goto_XY(1, 0);
+                sprintf(str_buff, "Road 1:%02d ", num1);
+                lcd_send_string(str_buff);
+
+                lcd_goto_XY(2, 0);
+                sprintf(str_buff, "Road 2:%02d", num2);
+                lcd_send_string(str_buff);
+                break;
             default:
                 lcd_clear_display();
                 lcd_goto_XY(1, 0);

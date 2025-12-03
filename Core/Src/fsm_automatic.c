@@ -6,6 +6,7 @@
  */
 
 #include "fsm_automatic.h"
+#include "pedestrian_crossing.h"
 
 void fsm_automatic_run(void) {
     switch (status) {
@@ -40,7 +41,11 @@ void fsm_automatic_run(void) {
                 setTimer(1, 1000);
                 updateLEDBuffer(counter1, counter2);
             }
+            if (isButtonPressed(3) == 1){
+            	status = PEDESTRIAN_RED_GREEN;
+            }
             break;
+
 
         case AUTO_RED_AMBER:
             setRed(1);
@@ -60,6 +65,9 @@ void fsm_automatic_run(void) {
                 setTimer(0, time_green * 1000);
                 setTimer(1, 1000);
                 updateLEDBuffer(counter1, counter2);
+            }
+            if (isButtonPressed(3) == 1){
+            	status = PEDESTRIAN_RED_AMBER;
             }
             break;
 
@@ -82,6 +90,9 @@ void fsm_automatic_run(void) {
                 setTimer(1, 1000);
                 updateLEDBuffer(counter1, counter2);
             }
+            if (isButtonPressed(3) == 1){
+            	status = PEDESTRIAN_GREEN_RED;
+            }
             break;
 
         case AUTO_AMBER_RED:
@@ -102,6 +113,9 @@ void fsm_automatic_run(void) {
                 setTimer(0, time_green * 1000);
                 setTimer(1, 1000);
                 updateLEDBuffer(counter1, counter2);
+            }
+            if (isButtonPressed(3) == 1){
+            	status = PEDESTRIAN_AMBER_RED;
             }
             break;
 

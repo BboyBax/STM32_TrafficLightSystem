@@ -122,6 +122,7 @@ int main(void)
   SCH_Add_Task(fsm_mode_run, 4, 1);
   SCH_Add_Task(fsm_automatic_run, 5, 1);
   SCH_Add_Task(fsm_manual_run, 6, 1);
+  SCH_Add_Task(pedestrian_cossing, 7, 1);
   while (1)
   {
 	  SCH_Dispatch_Tasks();

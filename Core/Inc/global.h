@@ -23,9 +23,21 @@
 #define MAN_AMBER		13
 #define MAN_GREEN		14
 
+#define PEDESTRIAN 		20
+#define PEDESTRIAN_RED_GREEN	21
+#define PEDESTRIAN_RED_AMBER	22
+#define PEDESTRIAN_RED_RED1		23
+#define PEDESTRIAN_GREEN_RED	24
+#define PEDESTRIAN_AMBER_RED	25
+#define PEDESTRIAN_RED_RED2		26
+
+
+
 extern int status;
+extern int status_temp;
 extern int counter1;
 extern int counter2;
+
 
 extern int time_red;
 extern int time_amber;
